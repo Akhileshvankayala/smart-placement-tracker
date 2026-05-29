@@ -21,19 +21,7 @@ dotenv.config();
 // Initialize Express
 const app = express();
 
-// CORS Configuration
-const corsOptions = {
-  origin: [
-    'https://smart-placement-tracker-two.vercel.app',
-    'http://localhost:3000',
-    'http://localhost:5173'
-  ],
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
@@ -54,9 +42,8 @@ app.use("/api/company", companyRoutes);
 app.use("/api/application", applicationRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/upload", uploadRoutes);
-
 // Catch-all 404 Handler for undefined routes
-app.use("*", (req, res) => {
+app.use((req, res) => {
     res.status(404).json({
         success: false,
         message: `Route ${req.originalUrl} not found`
