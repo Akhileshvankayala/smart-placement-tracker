@@ -16,13 +16,24 @@ export const uploadResume = asyncHandler(async (req, res) => {
     }
 
     // Upload to Cloudinary
-    const result = await cloudinary.uploader.upload(
-        req.file.path,
-        {
-            resource_type: "raw",
-            folder: "placement_tracker_resumes"
+    let result;
+    try {
+        result = await cloudinary.uploader.upload(
+            req.file.path,
+            {
+                resource_type: "raw",
+                folder: "placement_tracker_resumes"
+            }
+        );
+    } catch (uploadError) {
+        // Clean up local file even if upload fails
+        if (req.file && req.file.path && fs.existsSync(req.file.path)) {
+            fs.unlinkSync(req.file.path);
         }
-    );
+        console.error("Cloudinary Upload Error:", uploadError);
+        res.status(500);
+        throw new Error(`Cloudinary Upload Failed: ${uploadError.message || uploadError}`);
+    }
 
     // Find Student
     const student = await User.findById(req.user._id);
