@@ -55,6 +55,14 @@ app.use("/api/application", applicationRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/upload", uploadRoutes);
 
+// Catch-all 404 Handler for undefined routes
+app.use("*", (req, res) => {
+    res.status(404).json({
+        success: false,
+        message: `Route ${req.originalUrl} not found`
+    });
+});
+
 // Error Middleware
 app.use(errorMiddleware);
 
