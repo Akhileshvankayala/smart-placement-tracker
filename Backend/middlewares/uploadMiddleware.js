@@ -1,5 +1,16 @@
 import multer from "multer";
 import path from "path";
+import fs from "fs";
+
+// ======================================
+// Ensure Upload Directories Exist
+// ======================================
+const uploadDirs = ["uploads/resumes", "uploads/csv"];
+uploadDirs.forEach(dir => {
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+    }
+});
 
 // ======================================
 // Storage Configuration

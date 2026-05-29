@@ -18,11 +18,12 @@ yarn-debug.log*
 Thumbs.db
 
 # Uploads
-uploads/
+uploads/*
+!uploads/resumes/
+!uploads/csv/
 uploads/resumes/*
-uploads/csv/*
-!uploads/.gitkeep
 !uploads/resumes/.gitkeep
+uploads/csv/*
 !uploads/csv/.gitkeep
 
 # IDE
