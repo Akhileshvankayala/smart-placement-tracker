@@ -66,7 +66,7 @@ const Register = () => {
           <div className="auth-header">
             <h1 className="heading-xl">Create Account</h1>
             <p className="text-body" style={{ marginTop: '0.5rem' }}>
-              Join the platform to kickstart your journey.
+              Join the platform to kickstart your journey.<br></br>you can create account for admin(just to test out admin features).
             </p>
           </div>
 
